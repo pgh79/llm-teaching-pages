@@ -1,1 +1,52 @@
-<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Embedding 教学</title></head><body><h1>Embedding 教学示例页面</h1></body></html>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>Embedding 教学可视化</title>
+  <script src="assets/d3@7"></script>
+  <script src="assets/math.min.js"></script>
+  <link href="assets/tailwind.min.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body class="p-6 bg-gray-50 text-gray-800">
+  <h1 class="text-3xl font-bold mb-4">Embedding 向量空间可视化演示</h1>
+  <p class="mb-4">下图展示了几个 NLP 相关词汇的向量相似度布局。</p>
+  <div id="viz" class="border p-4 bg-white rounded shadow"></div>
+
+  <script>
+    const data = [
+      {id: "embedding", x: 0.5, y: 0.5},
+      {id: "position embedding", x: 0.6, y: 0.6},
+      {id: "encoder", x: 0.7, y: 0.45},
+      {id: "深度学习", x: 0.4, y: 0.6},
+      {id: "神经网络", x: 0.3, y: 0.55},
+      {id: "计算机视觉", x: 0.35, y: 0.3},
+      {id: "自然语言处理", x: 0.55, y: 0.4},
+      {id: "Forward feedback network", x: 0.9, y: 0.5}
+    ];
+
+    const width = 600, height = 400;
+    const svg = d3.select("#viz").append("svg")
+      .attr("width", width).attr("height", height);
+
+    svg.selectAll("circle")
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("cx", d => d.x * width)
+      .attr("cy", d => d.y * height)
+      .attr("r", 6)
+      .attr("fill", "#3b82f6");
+
+    svg.selectAll("text")
+      .data(data)
+      .enter()
+      .append("text")
+      .attr("x", d => d.x * width + 10)
+      .attr("y", d => d.y * height)
+      .text(d => d.id)
+      .attr("font-size", "12px")
+      .attr("fill", "#333");
+  </script>
+</body>
+</html>
